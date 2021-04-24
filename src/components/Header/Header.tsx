@@ -1,25 +1,30 @@
-import React from 'react';
-import {NavLink} from 'react-router-dom';
-import classes from './Header.module.css';
-import {initialStateSetUserType} from "../../redux/authReducer";
+import React from "react";
+import { NavLink } from "react-router-dom";
+import s from "./Header.module.css";
+import { initialStateSetUserType } from "../../redux/authReducer";
+import Navbar from "../NavBar/Navbar";
 
 type authPropsType = {
-    login: string | null
-    isAuth: boolean
-    setAuthUserData: (userData: initialStateSetUserType) => void
-}
+  login: string | null;
+  isAuth: boolean;
+  setAuthUserData: (userData: initialStateSetUserType) => void;
+};
 
 const Header = (props: authPropsType) => {
-
-    return (
-        <header className={classes.header}>
-            <img className={classes.picture}
-                 src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjG-JZ1vOhYl5GhS0900uggNYgE6M7qWYNmw&usqp=CAU'/>
-            <div className={classes.loginBlock}>
-                {props.isAuth? props.login :  <NavLink to={'/login'}>Login</NavLink>}
-            </div>
-        </header>
-    )
-}
+  return (
+    <div className={s.header_wrap}>
+      <header className={s.header}>
+        <Navbar />
+        <div className={s.loginBlock}>
+          {props.isAuth ? (
+            "Привет, " + props.login + "!"
+          ) : (
+            <NavLink to={"/login"}>Login</NavLink>
+          )}
+        </div>
+      </header>
+    </div>
+  );
+};
 
 export default Header;

@@ -1,9 +1,9 @@
 import React from 'react';
-import {AppStateType} from "../../redux/store";
 import {sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialogsPageReducer";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
+import {AppStateType} from "../../redux/types";
 
 
 let mapStateToProps = (state: AppStateType) =>{

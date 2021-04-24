@@ -1,18 +1,26 @@
-.header{
-    grid-area: h;
-    background-color: #12d34c;
+.header_wrap {
+  background-image: url("./../../assets/images/wood.jpg");
+  width: 100%;
+  min-height: 400px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 0 0 5px 5px;
+  position: relative;
 }
 
-.header img {
-    width: 100px;
-    height: 60px;
+.header {
+  height: 60px;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 50%;
+  position: absolute;
+  bottom: 5%;
+  width: 100%;
 }
 
 .loginBlock {
-    float: right;
-    margin: 5px;
-}
-
-.loginBlock a {
-    color: white;
+  color: rgb(58, 204, 167);
+  margin-right: 20px;
 }

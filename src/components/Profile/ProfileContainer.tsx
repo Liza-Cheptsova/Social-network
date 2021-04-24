@@ -3,8 +3,8 @@ import Profile from "./Profile";
 import axios from "axios";
 import {connect} from "react-redux";
 import {ProfileResponseType, setUserProfileCreator} from "../../redux/profilePageReducer";
-import {RootReduxState} from "../../redux/reduxStore";
 import {withRouter, RouteComponentProps} from "react-router-dom"
+import {RootReduxState} from "../../redux/store";
 
 export type ProfileMapStateToPropsType = {
     profile: ProfileResponseType | null
@@ -38,7 +38,7 @@ class ProfileContainer extends React.Component<ProfileOwnProps & RouteComponentP
             });
     }
 
-    render(){                                                //???
+    render(){
         return <div>
          <Profile {...this.props} profile={this.props.profile}/>
         </div>

@@ -1,14 +1,15 @@
-.nav{
-    grid-area: n;
-    background-color: #ffcc00;
-    padding: 20px;
+.nav {
+  display: flex;
+  align-items: center;
 }
 
-.item a{
-    color: whitesmoke;
-    text-decoration: none;
+.nav a {
+  text-decoration: none;
+  color: snow;
+  margin: 0 15px;
 }
 
-.item a.activeLink{
-    color: crimson;
+.nav a:hover,
+.nav a.active {
+  color: rgb(58, 204, 167);
 }
