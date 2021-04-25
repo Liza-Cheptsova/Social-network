@@ -42,10 +42,10 @@ export const Users = (props: UsersPageType) => {
   return (
     <div>
       <div className={styles.pagination}>
-        {pages.map((p) => {
+        {pages.map((p, index) => {
           return (
             <span
-              key={p}
+              key={index}
               className={props.currentPage === p ? styles.selectedPage : ""}
               onClick={() => {
                 props.onPageChanged(p);

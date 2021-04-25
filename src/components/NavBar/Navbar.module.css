@@ -10,6 +10,6 @@
 }
 
 .nav a:hover,
-.nav a.active {
+.nav a.activeLink {
   color: rgb(58, 204, 167);
 }

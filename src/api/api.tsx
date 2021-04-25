@@ -29,3 +29,7 @@ export const usersAPI = {
     });
   },
 };
+
+export const authAPI = {
+  getAuth() {},
+};

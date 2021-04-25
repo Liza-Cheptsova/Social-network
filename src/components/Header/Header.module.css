@@ -6,6 +6,7 @@
   background-position: center;
   border-radius: 0 0 5px 5px;
   position: relative;
+  margin-bottom: 10%;
 }
 
 .header {
@@ -23,4 +24,43 @@
 .loginBlock {
   color: rgb(58, 204, 167);
   margin-right: 20px;
+}
+
+.ava_wrap {
+  position: absolute;
+  left: 50px;
+  top: -140px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ava {
+  border-radius: 50%;
+  border: 10px solid #fff;
+  overflow: hidden;
+  width: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ava img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.ava_wrap h3 {
+  color: rgb(58, 204, 167);
+  font-size: 26px;
+  font-weight: 600;
+  margin: 5px 0 0 0;
+  font-family: "Quattrocento Sans";
+}
+
+.ava_wrap p {
+  color: #939598;
+  font-size: 15px;
+  margin: 5px 0 0 0;
 }

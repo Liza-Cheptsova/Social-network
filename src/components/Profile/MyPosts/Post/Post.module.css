@@ -1,41 +1,51 @@
-
-.item{
-    color: darkslategrey;
-    margin: 2px;
-    display: flex;
-}
-.item .messageContent{
-    background-color: white;
-    min-height: 70px;
-    width: 30%;
-    /*align-self: flex-end;*/
-    padding: 10px;
-    border-radius: 12px 12px 12px 0;
-    margin: 20px;
-    margin-left: 0;
-    margin-bottom: 0;
+.post_wrap {
+  background: #efefef;
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 20px;
 }
 
-.item .triangle{
-    width: 50px;
-    height: 50px;
-    background: radial-gradient(circle at 0 0, rgba(0, 0, 0, 0) 50px, white 0);
-    align-self: flex-end;
+.imgWrapper {
+  display: flex;
 }
 
-.item .messageContent .likes{
-    color: darkgray;
-    text-align: right;
-    align-self: flex-end;
+.imgWrapper img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  margin-left: 10px;
 }
 
-.item .imgWrapper{
-    align-self: flex-end;
+.titles {
+  margin: 0 0 5px 10px;
 }
 
-.item img{
-    width: 80px;
-    height: 80px;
-    border-radius: 50px;
-    align-self: flex-end;
+.titles h4 {
+  color: rgb(58, 204, 167);
+  margin: 0;
+}
+
+.titles span {
+  font-size: 12px;
+  color: #939598;
+}
+
+.post_header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.likes {
+  color: crimson;
+  cursor: pointer;
+}
+
+.likes i {
+  font-size: 20px;
+  margin-right: 5px;
+}
+
+.messageContent {
+  padding: 0 5%;
 }
