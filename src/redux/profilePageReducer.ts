@@ -1,7 +1,4 @@
-type ActionsType =
-  | ReturnType<typeof addPostCreator>
-  | ReturnType<typeof updateNewPostCreator>
-  | ReturnType<typeof setUserProfileCreator>;
+type ActionsType = ReturnType<typeof addPostCreator> | ReturnType<typeof updateNewPostCreator> | ReturnType<typeof setUserProfileCreator>;
 
 export type InitialProfileStateType = {
   posts: Array<PostType>;
@@ -50,10 +47,7 @@ let initialState: InitialProfileStateType = {
   profile: null,
 };
 
-const profilePageReducer = (
-  state: InitialProfileStateType = initialState,
-  action: ActionsType
-): InitialProfileStateType => {
+export const profilePageReducer = (state: InitialProfileStateType = initialState, action: ActionsType): InitialProfileStateType => {
   switch (action.type) {
     case "UPDATE_NEW_POST_TEXT": {
       return {
@@ -103,5 +97,3 @@ export const setUserProfileCreator = (profile: ProfileResponseType) => {
     profile,
   } as const;
 };
-
-export default profilePageReducer;

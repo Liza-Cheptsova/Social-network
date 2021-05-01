@@ -20,9 +20,7 @@ let initialState = {
   newMessageBody: "",
 };
 
-const dialogsPageReducer = (state: DialogPageType = initialState, action: ActionsType) => {
-  let stateCopy;
-
+export const dialogsPageReducer = (state: DialogPageType = initialState, action: ActionsType) => {
   switch (action.type) {
     case "UPDATE_NEW_MESSAGE_BODY": {
       return {
@@ -57,4 +55,3 @@ export const sendMessageCreator = () => {
     type: "SEND_MESSAGE",
   } as const;
 };
-export default dialogsPageReducer;
