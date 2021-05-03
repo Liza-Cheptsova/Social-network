@@ -1,3 +1,5 @@
+import { profileAPI } from "../api/api";
+
 type ActionsType = ReturnType<typeof addPostCreator> | ReturnType<typeof updateNewPostCreator> | ReturnType<typeof setUserProfileCreator>;
 
 export type InitialProfileStateType = {
@@ -96,4 +98,10 @@ export const setUserProfileCreator = (profile: ProfileResponseType) => {
     type: "SET_USER_PROFILE",
     profile,
   } as const;
+};
+
+export const getProfile = (userId: string) => (dispatch: any) => {
+  profileAPI.getProfile(userId).then((data) => {
+    dispatch(setUserProfileCreator(data));
+  });
 };
