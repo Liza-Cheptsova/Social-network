@@ -1,11 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import { follow, getUsers, setCurrentPage, toggleFollowingInProgress, unfollow, unfollowThunk } from "../../redux/usersPageReducer";
+import { getUsers, setCurrentPage, toggleFollowingInProgress } from "../../redux/usersPageReducer";
 import { Users } from "./Users";
 import { Preloader } from "../common/Preloader/Preloader";
 import { RootReduxState } from "../../redux/store";
-import { UsersPageType, UserType } from "../../redux/types";
-import { followThunk } from "./../../redux/usersPageReducer";
+import { UsersPageType } from "../../redux/types";
+import { followThunk, unfollowThunk } from "./../../redux/usersPageReducer";
 
 type MSTPropsType = {
   userPage: UsersPageType;
@@ -35,6 +35,14 @@ class UsersContainer extends React.Component<UsersPropsType> {
     this.props.getUsers(pageNumber, this.props.pageSize);
   };
 
+  onFollow = (id: number) => {
+    this.props.followThunk(id);
+  };
+
+  onUnfollow = (id: number) => {
+    this.props.unfollowThunk(id);
+  };
+
   render() {
     return (
       <>
@@ -44,8 +52,8 @@ class UsersContainer extends React.Component<UsersPropsType> {
           pageSize={this.props.pageSize}
           currentPage={this.props.currentPage}
           users={this.props.userPage.users}
-          followThunk={this.props.followThunk}
-          unfollowThunk={this.props.unfollowThunk}
+          onFollow={this.onFollow}
+          onUnfollow={this.onUnfollow}
           followingInProgress={this.props.followingInProgress}
           onPageChanged={this.onPageChanged}
           toggleFollowingInProgress={this.props.toggleFollowingInProgress}

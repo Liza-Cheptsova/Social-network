@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import styles from "./Users.module.css";
 import { NavLink } from "react-router-dom";
 import { usersAPI } from "../../api/api";
@@ -12,19 +12,29 @@ type UsersPageType = {
   currentPage: number;
   onPageChanged: (pageNumber: number) => void;
   users: UserType[];
-  followThunk: (userId: number) => void;
-  unfollowThunk: (userId: number) => void;
+  onFollow: (userId: number) => void;
+  onUnfollow: (userId: number) => void;
   followingInProgress: Array<number>;
   toggleFollowingInProgress: (isFetching: boolean, userId: number) => void;
 };
 
-export const Users = (props: UsersPageType) => {
-  let pageCount = Math.ceil(props.totalUsersCount / props.pageSize);
+export const Users: FC<UsersPageType> = ({
+  totalUsersCount,
+  pageSize,
+  currentPage,
+  onPageChanged,
+  users,
+  onFollow,
+  onUnfollow,
+  followingInProgress,
+  toggleFollowingInProgress,
+}) => {
+  let pageCount = Math.ceil(totalUsersCount / pageSize);
   let pages = [];
 
   if (pageCount > 20) {
-    if (props.currentPage > 5) {
-      for (let i = props.currentPage - 9; i <= props.currentPage + 9; i++) {
+    if (currentPage > 5) {
+      for (let i = currentPage - 9; i <= currentPage + 9; i++) {
         pages.push(i);
         if (i == pageCount) break;
       }
@@ -47,9 +57,9 @@ export const Users = (props: UsersPageType) => {
           return (
             <span
               key={index}
-              className={props.currentPage === p ? styles.selectedPage : ""}
+              className={currentPage === p ? styles.selectedPage : ""}
               onClick={() => {
-                props.onPageChanged(p);
+                onPageChanged(p);
               }}
             >
               {p}
@@ -59,7 +69,7 @@ export const Users = (props: UsersPageType) => {
       </div>
 
       <div className={styles.users_container}>
-        {props.users.map((u) => (
+        {users.map((u: any) => (
           <div key={u.id} className={styles.user_wrap}>
             <div className={styles.ava_title}>
               <div className={styles.user_avatar}>
@@ -74,21 +84,15 @@ export const Users = (props: UsersPageType) => {
               {u.followed ? (
                 <button
                   className={styles.btn}
-                  disabled={props.followingInProgress.some((id) => id === u.id)}
+                  disabled={followingInProgress.some((id: any) => id === u.id)}
                   onClick={() => {
-                    props.unfollowThunk(u.id);
+                    onUnfollow(u.id);
                   }}
                 >
                   unfollow
                 </button>
               ) : (
-                <button
-                  className={styles.btn}
-                  disabled={props.followingInProgress.some((id) => id === u.id)}
-                  onClick={() => {
-                    props.followThunk(u.id);
-                  }}
-                >
+                <button className={styles.btn} disabled={followingInProgress.some((id: any) => id === u.id)} onClick={() => onFollow(u.id)}>
                   follow
                 </button>
               )}

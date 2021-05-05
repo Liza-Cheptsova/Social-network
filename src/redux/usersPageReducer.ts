@@ -16,18 +16,17 @@ export const usersPageReducer = (state: InitialType = initialState, action: Acti
     case "FOLLOW":
       return {
         ...state,
-        users: state.users.map((u) => {
+        users: state.users.map((u: any) => {
           if (u.id === action.userId) {
             return { ...u, followed: true };
           }
           return u;
         }),
       };
-
     case "UNFOLLOW":
       return {
         ...state,
-        users: state.users.map((u) => {
+        users: state.users.map((u: any) => {
           if (u.id === action.userId) {
             return { ...u, followed: false };
           }
@@ -125,6 +124,7 @@ export const unfollowThunk = (userId: number) => (dispatch: any) => {
 };
 
 export const followThunk = (userId: number) => (dispatch: any) => {
+  console.log(userId);
   dispatch(toggleFollowingInProgress(true, userId));
   usersAPI.follow(userId).then((response) => {
     if (response.data.resultCode === 0) {
