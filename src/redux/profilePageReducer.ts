@@ -1,11 +1,16 @@
 import { profileAPI } from "../api/api";
 
-type ActionsType = ReturnType<typeof addPostCreator> | ReturnType<typeof updateNewPostCreator> | ReturnType<typeof setUserProfileCreator>;
+type ActionsType =
+  | ReturnType<typeof addPostCreator>
+  | ReturnType<typeof updateNewPostCreator>
+  | ReturnType<typeof setUserProfileCreator>
+  | ReturnType<typeof setStatus>;
 
 export type InitialProfileStateType = {
   posts: Array<PostType>;
   newPostText: string;
   profile: ProfileResponseType | null;
+  status: string;
 };
 
 export type PostType = {
@@ -47,9 +52,13 @@ let initialState: InitialProfileStateType = {
   ],
   newPostText: "",
   profile: null,
+  status: "",
 };
 
-export const profilePageReducer = (state: InitialProfileStateType = initialState, action: ActionsType): InitialProfileStateType => {
+export const profilePageReducer = (
+  state: InitialProfileStateType = initialState,
+  action: ActionsType
+): InitialProfileStateType => {
   switch (action.type) {
     case "UPDATE_NEW_POST_TEXT": {
       return {
@@ -74,6 +83,11 @@ export const profilePageReducer = (state: InitialProfileStateType = initialState
     case "SET_USER_PROFILE": {
       return { ...state, profile: action.profile };
     }
+
+    case "SET_STATUS": {
+      return { ...state, status: action.status };
+    }
+
     default:
       return state;
   }
@@ -100,8 +114,32 @@ export const setUserProfileCreator = (profile: ProfileResponseType) => {
   } as const;
 };
 
+export const setStatus = (status: string) => {
+  return {
+    type: "SET_STATUS",
+    status,
+  } as const;
+};
+
 export const getProfile = (userId: string) => (dispatch: any) => {
   profileAPI.getProfile(userId).then((data) => {
     dispatch(setUserProfileCreator(data));
   });
+};
+
+export const getStatus = (userId: string) => (dispatch: any) => {
+  profileAPI.getStatus(userId).then((data) => {
+    dispatch(setStatus(data));
+  });
+};
+
+export const updateStatus = (status: string) => (dispatch: any) => {
+  profileAPI
+    .updateStatus(status)
+    .then((res) => {
+      if (res.resultCode === 0) {
+        dispatch(setStatus(status));
+      }
+    })
+    .catch((e) => console.log(e));
 };

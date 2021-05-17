@@ -1,10 +1,8 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import styles from "./Users.module.css";
 import { NavLink } from "react-router-dom";
-import { usersAPI } from "../../api/api";
 import userPhoto from "../../assets/images/ava.jpg";
 import { UserType } from "../../redux/types";
-import { followThunk, unfollowThunk } from "./../../redux/usersPageReducer";
 
 type UsersPageType = {
   totalUsersCount: number;
@@ -29,31 +27,43 @@ export const Users: FC<UsersPageType> = ({
   followingInProgress,
   toggleFollowingInProgress,
 }) => {
-  let pageCount = Math.ceil(totalUsersCount / pageSize);
-  let pages = [];
+  const pagesCount = Math.ceil(totalUsersCount / pageSize);
+  const [pages, setPages] = useState<number[]>([]);
 
-  if (pageCount > 20) {
-    if (currentPage > 5) {
-      for (let i = currentPage - 9; i <= currentPage + 9; i++) {
-        pages.push(i);
-        if (i == pageCount) break;
-      }
-    } else {
+  useEffect(() => {
+    if (currentPage <= 10 && currentPage <= pagesCount - 10) {
+      let arr: number[] = [];
       for (let i = 1; i <= 20; i++) {
-        pages.push(i);
-        if (i == pageCount) break;
+        arr = [...arr, i];
       }
+      setPages(arr);
+    } else if (currentPage <= 10 && currentPage <= pagesCount) {
+      let arr: number[] = [];
+      for (let i = 1; i <= pagesCount; i++) {
+        arr = [...arr, i];
+      }
+      setPages(arr);
+    } else if (currentPage >= 10 && currentPage <= pagesCount - 10) {
+      let arr: number[] = [];
+      for (let i = currentPage - 10; i <= currentPage + 9; i++) {
+        arr = [...arr, i];
+      }
+      setPages(arr);
+    } else if (currentPage >= 10 && currentPage <= pagesCount) {
+      let arr: number[] = [];
+      for (let i = pagesCount - 19; i <= pagesCount; i++) {
+        arr = [...arr, i];
+      }
+      setPages(arr);
     }
-  } else {
-    for (let i = 1; i <= pageCount; i++) {
-      pages.push(i);
-    }
-  }
+  }, [currentPage, pagesCount]);
+
+  console.log("SUKA", currentPage, pagesCount, pages);
 
   return (
     <div>
       <div className={styles.pagination}>
-        {pages.map((p, index) => {
+        {pages.map((p: number, index: number) => {
           return (
             <span
               key={index}
@@ -69,12 +79,12 @@ export const Users: FC<UsersPageType> = ({
       </div>
 
       <div className={styles.users_container}>
-        {users.map((u: any) => (
+        {users.map((u) => (
           <div key={u.id} className={styles.user_wrap}>
             <div className={styles.ava_title}>
               <div className={styles.user_avatar}>
                 <NavLink to={"/profile/" + u.id}>
-                  <img className={styles.avatar} src={u.photos.small != null ? u.photos.small : userPhoto} alt="smile" />
+                  <img className={styles.avatar} src={u.photos.small != null ? u.photos.small : userPhoto} alt='smile' />
                 </NavLink>
               </div>
               <p>{u.name}</p>
@@ -84,7 +94,7 @@ export const Users: FC<UsersPageType> = ({
               {u.followed ? (
                 <button
                   className={styles.btn}
-                  disabled={followingInProgress.some((id: any) => id === u.id)}
+                  disabled={followingInProgress.some((id) => id === u.id)}
                   onClick={() => {
                     onUnfollow(u.id);
                   }}
@@ -92,7 +102,7 @@ export const Users: FC<UsersPageType> = ({
                   unfollow
                 </button>
               ) : (
-                <button className={styles.btn} disabled={followingInProgress.some((id: any) => id === u.id)} onClick={() => onFollow(u.id)}>
+                <button className={styles.btn} disabled={followingInProgress.some((id) => id === u.id)} onClick={() => onFollow(u.id)}>
                   follow
                 </button>
               )}

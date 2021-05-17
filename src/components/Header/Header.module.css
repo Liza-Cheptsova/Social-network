@@ -63,4 +63,23 @@
   color: #939598;
   font-size: 15px;
   margin: 5px 0 0 0;
+  max-width: 250px;
+  text-align: center;
+}
+
+.login {
+  color: snow;
+  text-decoration: none;
+}
+
+.status_class {
+  max-width: 250px;
+  text-align: center;
+  display: block;
+}
+
+.add_status {
+  width: 150px;
+  height: 20px;
+  display: block;
 }

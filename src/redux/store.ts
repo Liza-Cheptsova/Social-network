@@ -9,7 +9,7 @@ let reducers = combineReducers({
   profilePage: profilePageReducer,
   dialogsPage: dialogsPageReducer,
   usersPage: usersPageReducer,
-  authorization: authReducer,
+  auth: authReducer,
 });
 
 export type RootReduxState = ReturnType<typeof reducers>;

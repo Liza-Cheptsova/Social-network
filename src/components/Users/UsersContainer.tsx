@@ -6,12 +6,14 @@ import { Preloader } from "../common/Preloader/Preloader";
 import { RootReduxState } from "../../redux/store";
 import { UsersPageType } from "../../redux/types";
 import { followThunk, unfollowThunk } from "./../../redux/usersPageReducer";
+import { compose } from "redux";
+import { AuthRedirectComponent } from "../HOC/AuthRedirectComponent";
 
 type MSTPropsType = {
   userPage: UsersPageType;
   pageSize: number;
   totalUsersCount: number;
-  currentPage: 1 | number;
+  currentPage: number;
   isFetching: boolean;
   followingInProgress: Array<number>;
 };
@@ -74,10 +76,13 @@ const mapStateToProps = (state: RootReduxState): MSTPropsType => {
   };
 };
 
-export default connect(mapStateToProps, {
-  followThunk,
-  unfollowThunk,
-  setCurrentPage,
-  toggleFollowingInProgress,
-  getUsers,
-})(UsersContainer);
+export default compose<React.ComponentType>(
+  connect(mapStateToProps, {
+    followThunk,
+    unfollowThunk,
+    setCurrentPage,
+    toggleFollowingInProgress,
+    getUsers,
+  }),
+  AuthRedirectComponent
+)(UsersContainer);

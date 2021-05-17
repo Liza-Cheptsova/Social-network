@@ -1,14 +1,18 @@
-import React from "react";
+// import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import s from "./Header.module.css";
 import Navbar from "../NavBar/Navbar";
 import { ProfileResponseType } from "../../redux/profilePageReducer";
 import defaultAvatar from "../../assets/images/ava.jpg";
+import { Status } from "./Status/Status";
 
 type authPropsType = {
   login: string | null;
   isAuth: boolean;
   profile: ProfileResponseType | null;
+  status: string;
+  setStatus: (status: string) => void;
+  updateStatus: (status: string) => void;
 };
 
 const Header = (props: authPropsType) => {
@@ -21,10 +25,19 @@ const Header = (props: authPropsType) => {
           </div>
           <h3>{props.profile?.fullName}</h3>
           <p>{props.profile?.aboutMe}</p>
+          <Status status={props.status} setStatus={props.setStatus} updateStatus={props.updateStatus} />
         </div>
 
         <Navbar />
-        <div className={s.loginBlock}>{props.isAuth ? "Привет, " + props.login + "!" : <NavLink to={"/login"}>Login</NavLink>}</div>
+        <div className={s.loginBlock}>
+          {props.isAuth ? (
+            "Привет, " + props.login + "!"
+          ) : (
+            <NavLink to={"/login"} className={s.login}>
+              Login
+            </NavLink>
+          )}
+        </div>
       </header>
     </div>
   );

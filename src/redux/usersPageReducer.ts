@@ -4,7 +4,7 @@ import { UserType } from "./types";
 let initialState = {
   users: [] as Array<UserType>,
   pageSize: 15,
-  totalUsersCount: 0,
+  totalUsersCount: 500,
   currentPage: 1,
   isFetching: false,
   followingInProgress: [0],
@@ -50,7 +50,9 @@ export const usersPageReducer = (state: InitialType = initialState, action: Acti
     case "TOGGLE_IS_FOLLOWING_PROGRESS":
       return {
         ...state,
-        followingInProgress: action.isFetching ? [...state.followingInProgress, action.userId] : state.followingInProgress.filter((id) => id !== action.userId),
+        followingInProgress: action.isFetching
+          ? [...state.followingInProgress, action.userId]
+          : state.followingInProgress.filter((id) => id !== action.userId),
       };
   }
 };
@@ -109,6 +111,7 @@ export const getUsers = (currentPage: number, pageSize: number) => (dispatch: an
   usersAPI.getUsers(currentPage, pageSize).then((data) => {
     dispatch(toggleIsFetching(false));
     dispatch(setUsers(data.items));
+    dispatch(setCurrentPage(currentPage));
     dispatch(setTotalUsersCount(data.totalCount));
   });
 };
