@@ -1,0 +1,10 @@
+.error textarea,
+.error input {
+  border: 1px solid red !important;
+}
+
+.error p {
+  color: red;
+  margin: 0;
+  font-size: 12px;
+}

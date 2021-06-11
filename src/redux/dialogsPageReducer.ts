@@ -17,23 +17,15 @@ let initialState = {
     { id: 5, message: "London is a capital of great Britain" },
     { id: 6, message: "Live Belarus!" },
   ],
-  newMessageBody: "",
 };
 
 export const dialogsPageReducer = (state: DialogPageType = initialState, action: ActionsType) => {
   switch (action.type) {
-    case "UPDATE_NEW_MESSAGE_BODY": {
-      return {
-        ...state,
-        newMessageBody: action.newMessageBody,
-      };
-    }
     case "SEND_MESSAGE": {
-      let body = state.newMessageBody;
+      let body = action.newMessage;
       return {
         ...state,
-        newMessageBody: "",
-        messages: [...state.messages, { id: state.messages.length, message: body }],
+        messages: [...state.messages, { id: state.messages.length + 1, message: body }],
       };
     }
     default:
@@ -41,17 +33,11 @@ export const dialogsPageReducer = (state: DialogPageType = initialState, action:
   }
 };
 
-type ActionsType = ReturnType<typeof updateNewMessageBodyCreator> | ReturnType<typeof sendMessageCreator>;
+type ActionsType = ReturnType<typeof sendMessageCreator>;
 
-export const updateNewMessageBodyCreator = (body: string) => {
-  return {
-    type: "UPDATE_NEW_MESSAGE_BODY",
-    newMessageBody: body,
-  } as const;
-};
-
-export const sendMessageCreator = () => {
+export const sendMessageCreator = (newMessage: string) => {
   return {
     type: "SEND_MESSAGE",
+    newMessage,
   } as const;
 };

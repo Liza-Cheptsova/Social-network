@@ -59,14 +59,12 @@ export type ProfileResponseType = {
 
 type ProfilePageType = {
   posts: Array<PostType>;
-  newPostText: string;
   profile: ProfileResponseType | null;
 };
 
 export type DialogPageType = {
   dialogs: Array<DialogType>;
   messages: Array<MessageType>;
-  newMessageBody: string;
 };
 
 export type AppStateType = {
@@ -74,4 +72,3 @@ export type AppStateType = {
   profilePage: ProfilePageType;
   dialogsPage: DialogPageType;
 };
-

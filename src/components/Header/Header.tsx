@@ -1,4 +1,3 @@
-// import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import s from "./Header.module.css";
 import Navbar from "../NavBar/Navbar";
@@ -13,6 +12,7 @@ type authPropsType = {
   status: string;
   setStatus: (status: string) => void;
   updateStatus: (status: string) => void;
+  logout: () => void;
 };
 
 const Header = (props: authPropsType) => {
@@ -31,7 +31,12 @@ const Header = (props: authPropsType) => {
         <Navbar />
         <div className={s.loginBlock}>
           {props.isAuth ? (
-            "Привет, " + props.login + "!"
+            <div>
+              {"Привет, " + props.login + "!"}
+              <button onClick={props.logout} className={s.logoutBtn}>
+                logOut
+              </button>
+            </div>
           ) : (
             <NavLink to={"/login"} className={s.login}>
               Login

@@ -9,10 +9,12 @@ import { compose } from "redux";
 
 export type ProfileMapStateToPropsType = {
   profile: ProfileResponseType | null;
+  authoraizedUserId: number | null;
+  isAuth: boolean;
 };
 
 type RouteType = {
-  userId: string;
+  userId: any;
 };
 
 type ProfileMapDispatchToPropsType = {
@@ -27,7 +29,9 @@ class ProfileContainer extends React.Component<PropsType> {
   componentDidMount() {
     let userId = this.props.match.params.userId;
     if (!userId) {
-      userId = "5740";
+      // userId = "5740";
+      userId = this.props.authoraizedUserId;
+      console.log("userId: ", typeof userId);
     }
     this.props.getProfile(userId);
     this.props.getStatus(userId);
@@ -44,6 +48,8 @@ class ProfileContainer extends React.Component<PropsType> {
 
 const mapStateToProps = (state: RootReduxState): ProfileMapStateToPropsType => ({
   profile: state.profilePage.profile,
+  authoraizedUserId: state.auth.id,
+  isAuth: state.auth.isAuth,
 });
 
 export default compose<React.ComponentType>(

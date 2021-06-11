@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { initialStateSetUserType, setAuthUserData } from "../../redux/authReducer";
 import { RootReduxState } from "../../redux/store";
 import { ProfileResponseType, setStatus, updateStatus } from "../../redux/profilePageReducer";
-import { authThunk } from "./../../redux/authReducer";
+import { authThunk, logoutThunk } from "./../../redux/authReducer";
 
 type mapStateToPropsType = {
   login: string | null;
@@ -14,10 +14,11 @@ type mapStateToPropsType = {
 };
 
 type mapDispatchType = {
-  setAuthUserData: (userData: initialStateSetUserType) => void;
+  setAuthUserData: (payload: initialStateSetUserType) => void;
   setStatus: (status: string) => void;
   authThunk: () => void;
   updateStatus: (status: string) => void;
+  logoutThunk: () => void;
 };
 
 type PropsType = mapStateToPropsType & mapDispatchType;
@@ -34,6 +35,7 @@ class HeaderContainer extends React.Component<PropsType> {
         profile={this.props.profile}
         status={this.props.status}
         updateStatus={this.props.updateStatus}
+        logout={this.props.logoutThunk}
       />
     );
   }
@@ -46,4 +48,6 @@ const mapStateToProps = (state: RootReduxState): mapStateToPropsType => ({
   status: state.profilePage.status,
 });
 
-export default connect(mapStateToProps, { setAuthUserData, setStatus, authThunk, updateStatus })(HeaderContainer);
+export default connect(mapStateToProps, { setAuthUserData, setStatus, authThunk, updateStatus, logoutThunk })(
+  HeaderContainer
+);

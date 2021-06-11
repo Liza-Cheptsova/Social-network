@@ -2,13 +2,11 @@ import { profileAPI } from "../api/api";
 
 type ActionsType =
   | ReturnType<typeof addPostCreator>
-  | ReturnType<typeof updateNewPostCreator>
   | ReturnType<typeof setUserProfileCreator>
   | ReturnType<typeof setStatus>;
 
 export type InitialProfileStateType = {
   posts: Array<PostType>;
-  newPostText: string;
   profile: ProfileResponseType | null;
   status: string;
 };
@@ -50,7 +48,6 @@ let initialState: InitialProfileStateType = {
     { id: 5, message: "London is a capital of great Britain", likesCount: 7 },
     { id: 6, message: "Live Belarus!", likesCount: 345 },
   ],
-  newPostText: "",
   profile: null,
   status: "",
 };
@@ -60,13 +57,6 @@ export const profilePageReducer = (
   action: ActionsType
 ): InitialProfileStateType => {
   switch (action.type) {
-    case "UPDATE_NEW_POST_TEXT": {
-      return {
-        ...state,
-        newPostText: action.newText,
-      };
-    }
-
     case "ADD_POST": {
       const newPost: PostType = {
         id: new Date().getTime(),
@@ -75,8 +65,7 @@ export const profilePageReducer = (
       };
       return {
         ...state,
-        posts: [...state.posts, newPost],
-        newPostText: "",
+        posts: [newPost, ...state.posts],
       };
     }
 
@@ -97,13 +86,6 @@ export const addPostCreator = (newPostText: string) => {
   return {
     type: "ADD_POST",
     newPostText: newPostText,
-  } as const;
-};
-
-export const updateNewPostCreator = (newText: string) => {
-  return {
-    type: "UPDATE_NEW_POST_TEXT",
-    newText: newText,
   } as const;
 };
 

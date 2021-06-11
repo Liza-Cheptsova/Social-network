@@ -3,25 +3,23 @@ import classes from "./Dialogs.module.css";
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Mesage";
 import { DialogPageType } from "../../redux/types";
+import { Field, reduxForm } from "redux-form";
+import { Textarea } from "../../utils/validate/Validate";
+import { required } from "../../utils/validate/validators";
 
 type PropsType = {
   dialogsPage: DialogPageType;
-  sendMessage: () => void;
-  onNewMessageChange: (text: string) => void;
+  sendMessageCreator: (newMessage: string) => void;
 };
+
+// const maxLength = maxLength(10);
 
 const Dialogs = (props: PropsType) => {
   const dialogsElement = props.dialogsPage.dialogs.map((d) => <DialogItem name={d.name} id={d.id} key={d.id} />);
   const messagesElements = props.dialogsPage.messages.map((m) => <Message message={m.message} key={m.id} />);
-  const newMessageBody = props.dialogsPage.newMessageBody;
 
-  const sendMessage = () => {
-    props.sendMessage();
-  };
-
-  const onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    let text = e.currentTarget.value;
-    props.onNewMessageChange(text);
+  const onSubmit = (value: any) => {
+    props.sendMessageCreator(value.newMessage);
   };
 
   return (
@@ -30,17 +28,27 @@ const Dialogs = (props: PropsType) => {
         <div className={classes.dialogsItems}>{dialogsElement}</div>
         <div className={classes.messages}>
           <div>{messagesElements}</div>
-          <div>
-            <div>
-              <textarea value={newMessageBody} onChange={onNewMessageChange} placeholder="type message" />
-            </div>
-            <div>
-              <button onClick={sendMessage}>Send message</button>
-            </div>
-          </div>
+          <AddMessagesForm onSubmit={onSubmit} />
         </div>
       </div>
     </div>
   );
 };
 export default Dialogs;
+
+const AddMessages = (props: any) => {
+  return (
+    <form onSubmit={props.handleSubmit}>
+      <div>
+        <Field name='newMessage' component={Textarea} validate={[required]} placeholder='type message' />
+      </div>
+      <div>
+        <button>Send message</button>
+      </div>
+    </form>
+  );
+};
+
+const AddMessagesForm = reduxForm({
+  form: "addMessage",
+})(AddMessages);
