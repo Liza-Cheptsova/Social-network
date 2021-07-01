@@ -58,8 +58,6 @@ export const Users: FC<UsersPageType> = ({
     }
   }, [currentPage, pagesCount]);
 
-  console.log("SUKA", currentPage, pagesCount, pages);
-
   return (
     <div>
       <div className={styles.pagination}>
@@ -84,7 +82,11 @@ export const Users: FC<UsersPageType> = ({
             <div className={styles.ava_title}>
               <div className={styles.user_avatar}>
                 <NavLink to={"/profile/" + u.id}>
-                  <img className={styles.avatar} src={u.photos.small != null ? u.photos.small : userPhoto} alt='smile' />
+                  <img
+                    className={styles.avatar}
+                    src={u.photos.small != null ? u.photos.small : userPhoto}
+                    alt='smile'
+                  />
                 </NavLink>
               </div>
               <p>{u.name}</p>
@@ -102,7 +104,11 @@ export const Users: FC<UsersPageType> = ({
                   unfollow
                 </button>
               ) : (
-                <button className={styles.btn} disabled={followingInProgress.some((id) => id === u.id)} onClick={() => onFollow(u.id)}>
+                <button
+                  className={styles.btn}
+                  disabled={followingInProgress.some((id) => id === u.id)}
+                  onClick={() => onFollow(u.id)}
+                >
                   follow
                 </button>
               )}

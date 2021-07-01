@@ -31,7 +31,6 @@ class ProfileContainer extends React.Component<PropsType> {
     if (!userId) {
       // userId = "5740";
       userId = this.props.authoraizedUserId;
-      console.log("userId: ", typeof userId);
     }
     this.props.getProfile(userId);
     this.props.getStatus(userId);
