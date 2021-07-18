@@ -60,22 +60,6 @@ export const Users: FC<UsersPageType> = ({
 
   return (
     <div>
-      <div className={styles.pagination}>
-        {pages.map((p: number, index: number) => {
-          return (
-            <span
-              key={index}
-              className={currentPage === p ? styles.selectedPage : ""}
-              onClick={() => {
-                onPageChanged(p);
-              }}
-            >
-              {p}
-            </span>
-          );
-        })}
-      </div>
-
       <div className={styles.users_container}>
         {users.map((u) => (
           <div key={u.id} className={styles.user_wrap}>
@@ -85,7 +69,7 @@ export const Users: FC<UsersPageType> = ({
                   <img
                     className={styles.avatar}
                     src={u.photos.small != null ? u.photos.small : userPhoto}
-                    alt='smile'
+                    alt="smile"
                   />
                 </NavLink>
               </div>
@@ -115,6 +99,21 @@ export const Users: FC<UsersPageType> = ({
             </div>
           </div>
         ))}
+      </div>
+      <div className={styles.pagination}>
+        {pages.map((p: number, index: number) => {
+          return (
+            <span
+              key={index}
+              className={currentPage === p ? styles.selectedPage : ""}
+              onClick={() => {
+                onPageChanged(p);
+              }}
+            >
+              {p}
+            </span>
+          );
+        })}
       </div>
     </div>
   );
